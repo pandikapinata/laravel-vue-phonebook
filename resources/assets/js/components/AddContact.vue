@@ -11,13 +11,12 @@
             </div>
             <div class="modal-body">
                 <slot name="body">
-                    <p>Modal body text goes here.</p>
+
                 </slot>
             </div>
             <div class="modal-footer">
             <slot name="footer">
-                <button type="button" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" @click="close()">Close</button>
+
             </slot>
             </div>
             </div>

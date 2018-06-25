@@ -50249,13 +50249,173 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.showModal
-        ? _c("Addcontact", {
-            on: {
-              close: function($event) {
-                _vm.showModal = false
+        ? _c(
+            "Addcontact",
+            {
+              on: {
+                close: function($event) {
+                  _vm.showModal = false
+                }
               }
-            }
-          })
+            },
+            [
+              _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "firstname" } }, [
+                    _vm._v("First Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.firstname,
+                        expression: "list.firstname"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "firstname",
+                      placeholder: "Enter First Name"
+                    },
+                    domProps: { value: _vm.list.firstname },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "firstname", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "lastname" } }, [
+                    _vm._v("Last Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.lastname,
+                        expression: "list.lastname"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      id: "lastname",
+                      placeholder: "Enter Last Name"
+                    },
+                    domProps: { value: _vm.list.lastname },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "lastname", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "telp" } }, [
+                    _vm._v("Phone Number")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.telp,
+                        expression: "list.telp"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "number",
+                      id: "telp",
+                      placeholder: "Enter Phone Number"
+                    },
+                    domProps: { value: _vm.list.telp },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "telp", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "email" } }, [
+                    _vm._v("Email address")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.list.email,
+                        expression: "list.email"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "email",
+                      id: "email",
+                      "aria-describedby": "emailHelp",
+                      placeholder: "Enter email"
+                    },
+                    domProps: { value: _vm.list.email },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.list, "email", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "small",
+                    {
+                      staticClass: "form-text text-muted",
+                      attrs: { id: "emailHelp" }
+                    },
+                    [_vm._v("We'll never share your email with anyone else.")]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        _vm.save()
+                      }
+                    }
+                  },
+                  [_vm._v("Save changes")]
+                )
+              ])
+            ]
+          )
         : _vm._e()
     ],
     1
@@ -50573,48 +50733,9 @@ var render = function() {
                 2
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal-body" },
-                [
-                  _vm._t("body", [
-                    _c("p", [_vm._v("Modal body text goes here.")])
-                  ])
-                ],
-                2
-              ),
+              _c("div", { staticClass: "modal-body" }, [_vm._t("body")], 2),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal-footer" },
-                [
-                  _vm._t("footer", [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button" }
-                      },
-                      [_vm._v("Save changes")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-secondary",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.close()
-                          }
-                        }
-                      },
-                      [_vm._v("Close")]
-                    )
-                  ])
-                ],
-                2
-              )
+              _c("div", { staticClass: "modal-footer" }, [_vm._t("footer")], 2)
             ])
           ]
         )
@@ -50681,6 +50802,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -50690,13 +50838,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     data: function data() {
         return {
-            showModal: false
+            showModal: false,
+
+            list: {
+                firstname: '',
+                lastname: '',
+                telp: '',
+                email: ''
+            }
         };
     },
 
     methods: {
         openModal: function openModal() {
             this.showModal = true;
+        },
+        save: function save() {
+            var _this = this;
+
+            axios.post('/phonebook', this.$data.list).then(function (response) {
+                return _this.showModal = false;
+            }).catch(function (error) {
+                return console.log(error);
+            });
         }
     }
 });
@@ -50707,7 +50871,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //

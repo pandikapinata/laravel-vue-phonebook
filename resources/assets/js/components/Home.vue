@@ -35,7 +35,34 @@
         </div>
         </div>
 
-        <Addcontact v-if="showModal" @close="showModal = false"></Addcontact>
+        <Addcontact v-if="showModal" @close="showModal = false">
+        <div slot="body">
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" id="firstname" placeholder="Enter First Name" v-model="list.firstname">
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" v-model="list.lastname">
+            </div>
+
+            <div class="form-group">
+                <label for="telp">Phone Number</label>
+                <input type="number" class="form-control" id="telp" placeholder="Enter Phone Number" v-model="list.telp">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model="list.email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+
+        </div>
+        <div slot="footer">
+            <button type="button" class="btn btn-primary" @click="save()">Save changes</button>
+        </div>
+        </Addcontact>
     </div>
 </template>
 
@@ -48,12 +75,24 @@ import Addcontact from './AddContact';
         },
         data(){
             return {
-                showModal: false
+                showModal: false,
+
+                list:{
+                    firstname:'',
+                    lastname:'',
+                    telp:'',
+                    email:''
+                }
             }
         },
         methods: {
             openModal() {
                 this.showModal = true;
+            },
+            save(){
+                axios.post('/phonebook', this.$data.list).then((response)=> this.showModal=false)
+                .catch((error)=>console.log(error))
+
             }
         }
     }
