@@ -20,9 +20,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td><a href="javascript:void(0)">1</a></td>
-                            <td>Herman Beck</td>
+                        <tr v-for="item, key in lists">
+                            <td>{{key+1}}</td>
+                            <td>{{item.first_name}} {{item.last_name}}</td>
                             <td>
                                 <button type="button" class="btn btn-secondary"><i class="fa fa-eye" aria-hidden="true"></i></button>
                                 <button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
@@ -89,8 +89,16 @@ import Formerror from './FormErrors.vue';
                     email:''
                 },
                 errors:{},
+                lists:{},
             }
         },
+        mounted(){
+            axios.post('/getData').
+            then((response)=> this.lists=response.data)
+            .catch(error => {this.errors = error.response.data.errors;
+            });
+        },
+
         methods: {
             openModal() {
                 this.showModal = true;

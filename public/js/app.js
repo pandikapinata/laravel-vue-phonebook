@@ -50243,7 +50243,26 @@ var render = function() {
               _vm._m(0)
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("table", { staticClass: "table" }, [
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.lists, function(item, key) {
+                  return _c("tr", [
+                    _c("td", [_vm._v(_vm._s(key + 1))]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(item.first_name) + " " + _vm._s(item.last_name)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2, true)
+                  ])
+                })
+              )
+            ])
           ])
         ])
       ]),
@@ -50504,61 +50523,53 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("table", { staticClass: "table" }, [
-      _c("thead", [
-        _c("tr", [
-          _c("th", [_vm._v("#")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Name")]),
-          _vm._v(" "),
-          _c("th", [_vm._v("Action")])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("tbody", [
-        _c("tr", [
-          _c("td", [
-            _c("a", { attrs: { href: "javascript:void(0)" } }, [_vm._v("1")])
-          ]),
-          _vm._v(" "),
-          _c("td", [_vm._v("Herman Beck")]),
-          _vm._v(" "),
-          _c("td", [
-            _c(
-              "button",
-              { staticClass: "btn btn-secondary", attrs: { type: "button" } },
-              [
-                _c("i", {
-                  staticClass: "fa fa-eye",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-primary", attrs: { type: "button" } },
-              [
-                _c("i", {
-                  staticClass: "fa fa-pencil-square-o",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              { staticClass: "btn btn-danger", attrs: { type: "button" } },
-              [
-                _c("i", {
-                  staticClass: "fa fa-trash",
-                  attrs: { "aria-hidden": "true" }
-                })
-              ]
-            )
-          ])
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Action")])
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c(
+        "button",
+        { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+        [
+          _c("i", {
+            staticClass: "fa fa-eye",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "button" } },
+        [
+          _c("i", {
+            staticClass: "fa fa-pencil-square-o",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-danger", attrs: { type: "button" } },
+        [
+          _c("i", {
+            staticClass: "fa fa-trash",
+            attrs: { "aria-hidden": "true" }
+          })
+        ]
+      )
     ])
   }
 ]
@@ -50904,21 +50915,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 telp: '',
                 email: ''
             },
-            errors: {}
+            errors: {},
+            lists: {}
         };
     },
+    mounted: function mounted() {
+        var _this = this;
+
+        axios.post('/getData').then(function (response) {
+            return _this.lists = response.data;
+        }).catch(function (error) {
+            _this.errors = error.response.data.errors;
+        });
+    },
+
 
     methods: {
         openModal: function openModal() {
             this.showModal = true;
         },
         save: function save() {
-            var _this = this;
+            var _this2 = this;
 
             axios.post('/phonebook', this.$data.list).then(function (response) {
-                return _this.showModal = false;
+                return _this2.showModal = false;
             }).catch(function (error) {
-                _this.errors = error.response.data.errors;
+                _this2.errors = error.response.data.errors;
             });
         }
     }
