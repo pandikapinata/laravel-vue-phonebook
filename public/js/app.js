@@ -50260,37 +50260,54 @@ var render = function() {
             },
             [
               _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "firstname" } }, [
-                    _vm._v("First Name")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.list.firstname,
-                        expression: "list.firstname"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "firstname",
-                      placeholder: "Enter First Name"
-                    },
-                    domProps: { value: _vm.list.firstname },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "firstname" } }, [
+                      _vm._v("First Name")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.list.firstname,
+                          expression: "list.firstname"
                         }
-                        _vm.$set(_vm.list, "firstname", $event.target.value)
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.firstname },
+                      attrs: {
+                        type: "text",
+                        id: "firstname",
+                        placeholder: "Enter First Name"
+                      },
+                      domProps: { value: _vm.list.firstname },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.list, "firstname", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.firstname
+                      ? _c(
+                          "Formerror",
+                          {
+                            staticClass: "invalid-feedback",
+                            attrs: { errors: _vm.errors }
+                          },
+                          [_vm._v(_vm._s(_vm.errors.firstname[0]))]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", { attrs: { for: "lastname" } }, [
@@ -50324,79 +50341,113 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "telp" } }, [
-                    _vm._v("Phone Number")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.list.telp,
-                        expression: "list.telp"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "number",
-                      id: "telp",
-                      placeholder: "Enter Phone Number"
-                    },
-                    domProps: { value: _vm.list.telp },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "telp" } }, [
+                      _vm._v("Phone Number")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.list.telp,
+                          expression: "list.telp"
                         }
-                        _vm.$set(_vm.list, "telp", $event.target.value)
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.phone },
+                      attrs: {
+                        type: "number",
+                        id: "telp",
+                        placeholder: "Enter Phone Number"
+                      },
+                      domProps: { value: _vm.list.telp },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.list, "telp", $event.target.value)
+                        }
                       }
-                    }
-                  })
-                ]),
+                    }),
+                    _vm._v(" "),
+                    _vm.errors.phone
+                      ? _c(
+                          "Formerror",
+                          {
+                            staticClass: "invalid-feedback",
+                            attrs: { errors: _vm.errors }
+                          },
+                          [_vm._v(_vm._s(_vm.errors.phone[0]))]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "email" } }, [
-                    _vm._v("Email address")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.list.email,
-                        expression: "list.email"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "email",
-                      id: "email",
-                      "aria-describedby": "emailHelp",
-                      placeholder: "Enter email"
-                    },
-                    domProps: { value: _vm.list.email },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c(
+                  "div",
+                  { staticClass: "form-group" },
+                  [
+                    _c("label", { attrs: { for: "email" } }, [
+                      _vm._v("Email address")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.list.email,
+                          expression: "list.email"
                         }
-                        _vm.$set(_vm.list, "email", $event.target.value)
+                      ],
+                      staticClass: "form-control",
+                      class: { "is-invalid": _vm.errors.email },
+                      attrs: {
+                        type: "email",
+                        id: "email",
+                        "aria-describedby": "emailHelp",
+                        placeholder: "Enter email"
+                      },
+                      domProps: { value: _vm.list.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.list, "email", $event.target.value)
+                        }
                       }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "small",
-                    {
-                      staticClass: "form-text text-muted",
-                      attrs: { id: "emailHelp" }
-                    },
-                    [_vm._v("We'll never share your email with anyone else.")]
-                  )
-                ])
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "small",
+                      {
+                        staticClass: "form-text text-muted",
+                        attrs: { id: "emailHelp" }
+                      },
+                      [_vm._v("We'll never share your email with anyone else.")]
+                    ),
+                    _vm._v(" "),
+                    _vm.errors.email
+                      ? _c(
+                          "Formerror",
+                          {
+                            staticClass: "invalid-feedback",
+                            attrs: { errors: _vm.errors }
+                          },
+                          [_vm._v(_vm._s(_vm.errors.email[0]))]
+                        )
+                      : _vm._e()
+                  ],
+                  1
+                )
               ]),
               _vm._v(" "),
               _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
@@ -50761,6 +50812,11 @@ if (false) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddContact__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddContact___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddContact__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormErrors_vue__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__FormErrors_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__FormErrors_vue__);
+//
+//
+//
 //
 //
 //
@@ -50831,10 +50887,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 
+
+// import FormError component
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     components: {
-        Addcontact: __WEBPACK_IMPORTED_MODULE_0__AddContact___default.a
+        Addcontact: __WEBPACK_IMPORTED_MODULE_0__AddContact___default.a, Formerror: __WEBPACK_IMPORTED_MODULE_1__FormErrors_vue___default.a
     },
     data: function data() {
         return {
@@ -50845,7 +50903,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 lastname: '',
                 telp: '',
                 email: ''
-            }
+            },
+            errors: {}
         };
     },
 
@@ -50859,7 +50918,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('/phonebook', this.$data.list).then(function (response) {
                 return _this.showModal = false;
             }).catch(function (error) {
-                return console.log(error);
+                _this.errors = error.response.data.errors;
             });
         }
     }
@@ -50907,6 +50966,96 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     }
 });
+
+/***/ }),
+/* 64 */,
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(2)
+/* script */
+var __vue_script__ = __webpack_require__(66)
+/* template */
+var __vue_template__ = __webpack_require__(67)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\FormErrors.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7daf9ef4", Component.options)
+  } else {
+    hotAPI.reload("data-v-7daf9ef4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['errors']
+});
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "span",
+    { staticStyle: { display: "block" } },
+    [_vm._t("default")],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7daf9ef4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

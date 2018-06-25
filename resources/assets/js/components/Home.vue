@@ -39,7 +39,8 @@
         <div slot="body">
             <div class="form-group">
                 <label for="firstname">First Name</label>
-                <input type="text" class="form-control" id="firstname" placeholder="Enter First Name" v-model="list.firstname">
+                <input type="text" class="form-control" v-bind:class="{ 'is-invalid': errors.firstname }" id="firstname" placeholder="Enter First Name" v-model="list.firstname">
+                <Formerror class="invalid-feedback" v-if="errors.firstname" :errors="errors">{{ errors.firstname[0] }}</Formerror>
             </div>
 
             <div class="form-group">
@@ -49,13 +50,15 @@
 
             <div class="form-group">
                 <label for="telp">Phone Number</label>
-                <input type="number" class="form-control" id="telp" placeholder="Enter Phone Number" v-model="list.telp">
+                <input type="number" class="form-control" v-bind:class="{ 'is-invalid': errors.phone }" id="telp" placeholder="Enter Phone Number" v-model="list.telp">
+                <Formerror class="invalid-feedback" v-if="errors.phone" :errors="errors">{{ errors.phone[0] }}</Formerror>
             </div>
 
             <div class="form-group">
                 <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model="list.email">
+                <input type="email" class="form-control" v-bind:class="{ 'is-invalid': errors.email }" id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model="list.email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <Formerror class="invalid-feedback" v-if="errors.email" :errors="errors">{{ errors.email[0] }}</Formerror>
             </div>
 
         </div>
@@ -69,9 +72,11 @@
 <script>
 
 import Addcontact from './AddContact';
+// import FormError component
+import Formerror from './FormErrors.vue';
     export default {
         components:{
-            Addcontact
+            Addcontact, Formerror
         },
         data(){
             return {
@@ -82,7 +87,8 @@ import Addcontact from './AddContact';
                     lastname:'',
                     telp:'',
                     email:''
-                }
+                },
+                errors:{},
             }
         },
         methods: {
@@ -91,8 +97,8 @@ import Addcontact from './AddContact';
             },
             save(){
                 axios.post('/phonebook', this.$data.list).then((response)=> this.showModal=false)
-                .catch((error)=>console.log(error))
-
+                .catch(error => {this.errors = error.response.data.errors;
+                });
             }
         }
     }

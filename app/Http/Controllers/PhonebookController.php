@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Phonebook;
+use App\Http\Requests\PhonebookRequest;
 use Illuminate\Http\Request;
 
 class PhonebookController extends Controller
@@ -33,7 +34,7 @@ class PhonebookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PhonebookRequest $request)
     {
         $pb = new Phonebook;
         $pb->first_name = $request->firstname;
