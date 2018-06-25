@@ -11,10 +11,10 @@
         <div class="collapse navbar-collapse" id="navbarColor03">
             <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <router-link class="nav-link" to="/home">Home</router-link>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
+                <router-link class="nav-link" to="/about">About</router-link>
             </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">

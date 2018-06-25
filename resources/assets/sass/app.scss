@@ -6,6 +6,9 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400
 // Variables
 @import "variables";
 
+// Font Awesome
+@import "~font-awesome/scss/font-awesome";
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
@@ -432,4 +435,8 @@ a.list-group-item {
   text-align: center;
   background-color: #f9f9f9;
   border-top: .05rem solid #e5e5e5;
+}
+
+.container-fluid {
+  padding: 25px 25px;
 }
