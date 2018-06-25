@@ -12,6 +12,7 @@
         <Myheader></Myheader>
         <div class="container-fluid">
             <router-view></router-view>
+
         </div>
         <Myfooter></Myfooter>
     </div>
