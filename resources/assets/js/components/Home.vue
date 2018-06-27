@@ -24,9 +24,9 @@
                             <td>{{key+1}}</td>
                             <td>{{item.first_name}} {{item.last_name}}</td>
                             <td>
-                                <button type="button" class="btn btn-secondary"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-primary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-secondary" @click="openShow(key)"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-primary" @click="openEdit(key)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-danger" @click="del(key,item.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>
                             </td>
                         </tr>
                     </tbody>
@@ -38,14 +38,14 @@
         <Addcontact v-if="showModal" @close="showModal = false">
         <div slot="body">
             <div class="form-group">
-                <label for="firstname">First Name</label>
-                <input type="text" class="form-control" v-bind:class="{ 'is-invalid': errors.firstname }" id="firstname" placeholder="Enter First Name" v-model="list.firstname">
-                <Formerror class="invalid-feedback" v-if="errors.firstname" :errors="errors">{{ errors.firstname[0] }}</Formerror>
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" v-bind:class="{ 'is-invalid': errors.first_name }" id="first_name" placeholder="Enter First Name" v-model="list.first_name">
+                <Formerror class="invalid-feedback" v-if="errors.first_name" :errors="errors">{{ errors.first_name[0] }}</Formerror>
             </div>
 
             <div class="form-group">
                 <label for="lastname">Last Name</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" v-model="list.lastname">
+                <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" v-model="list.last_name">
             </div>
 
             <div class="form-group">
@@ -63,7 +63,64 @@
 
         </div>
         <div slot="footer">
-            <button type="button" class="btn btn-primary" @click="save()">Save changes</button>
+            <button type="button" class="btn btn-primary" @click="save()">Save</button>
+        </div>
+        </Addcontact>
+
+        <Addcontact v-if="detailcontactModal" @close="detailcontactModal = false">
+        <h5 slot="header">{{content.first_name}} {{content.last_name}} Contant Details</h5>
+        <div slot="body">
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" id="firstname" placeholder="Enter First Name" v-model="content.first_name" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" v-model="content.last_name" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="telp">Phone Number</label>
+                <input type="number" class="form-control" id="telp" placeholder="Enter Phone Number" v-model="content.telp" readonly>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control"  id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model="content.email" readonly>
+            </div>
+        </div>
+        </Addcontact>
+
+        <Addcontact v-if="editModal" @close="editModal = false">
+        <div slot="body">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" class="form-control" v-bind:class="{ 'is-invalid': errors.first_name }" id="first_name" placeholder="Enter First Name" v-model="contentUpdate.first_name">
+                <Formerror class="invalid-feedback" v-if="errors.first_name" :errors="errors">{{ errors.first_name[0] }}</Formerror>
+            </div>
+
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" id="lastname" placeholder="Enter Last Name" v-model="contentUpdate.last_name">
+            </div>
+
+            <div class="form-group">
+                <label for="telp">Phone Number</label>
+                <input type="number" class="form-control" v-bind:class="{ 'is-invalid': errors.telp }" id="telp" placeholder="Enter Phone Number" v-model="contentUpdate.telp">
+                <Formerror class="invalid-feedback" v-if="errors.telp" :errors="errors">{{ errors.telp[0] }}</Formerror>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" v-bind:class="{ 'is-invalid': errors.email }" id="email" aria-describedby="emailHelp" placeholder="Enter email" v-model="contentUpdate.email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <Formerror class="invalid-feedback" v-if="errors.email" :errors="errors">{{ errors.email[0] }}</Formerror>
+            </div>
+
+        </div>
+        <div slot="footer">
+            <button type="button" class="btn btn-primary" @click="update()">Save changes</button>
         </div>
         </Addcontact>
     </div>
@@ -81,13 +138,17 @@ import Formerror from './FormErrors.vue';
         data(){
             return {
                 showModal: false,
+                detailcontactModal:false,
+                editModal: false,
 
                 list:{
-                    firstname:'',
-                    lastname:'',
+                    first_name:'',
+                    last_name:'',
                     telp:'',
                     email:''
                 },
+                content:[],
+                contentUpdate:{},
                 errors:{},
                 lists:{},
             }
@@ -103,10 +164,32 @@ import Formerror from './FormErrors.vue';
             openModal() {
                 this.showModal = true;
             },
+            openShow(key) {
+                this.content=this.lists[key]
+                this.detailcontactModal = true;
+            },
+            openEdit(key) {
+                this.contentUpdate=this.lists[key]
+                this.editModal = true;
+            },
             save(){
                 axios.post('/phonebook', this.$data.list).then((response)=> this.showModal=false)
                 .catch(error => {this.errors = error.response.data.errors;
                 });
+            },
+            update(){
+                axios.patch(`/phonebook/${this.contentUpdate.id}`, this.$data.contentUpdate).then((response)=> this.editModal=false)
+                .catch(error => {this.errors = error.response.data.errors;
+                });
+            },
+            del(key,id){
+                if(confirm("Are you sure?")){
+                    axios.delete(`/phonebook/${id}`).
+                    then((response)=> this.lists.splice(key,1))
+                    .catch(error => {this.errors = error.response.data.errors;
+                    });
+                }
+
             }
         }
     }
