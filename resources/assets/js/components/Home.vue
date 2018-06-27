@@ -173,7 +173,18 @@ import Formerror from './FormErrors.vue';
                 this.editModal = true;
             },
             save(){
-                axios.post('/phonebook', this.$data.list).then((response)=> this.showModal=false)
+                axios.post('/phonebook', this.$data.list).then((response)=> {
+                    this.showModal=false
+                    this.lists.push(response.data) //merubah data dan mengambil data dari method di controller
+                    this.lists.sort(function(a,b){ //sorting
+                        if(a.first_name > b.first_name){
+                            return 1;
+                        }else if (a.first_name < b.first_name){
+                            return -1;
+                        }
+                    })
+                    this.list = ""
+                })
                 .catch(error => {this.errors = error.response.data.errors;
                 });
             },

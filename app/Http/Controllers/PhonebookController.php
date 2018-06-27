@@ -47,6 +47,8 @@ class PhonebookController extends Controller
         $pb->email = $request->email;
         $pb->telp = $request->telp;
         $pb->save();
+
+        return $pb;
     }
 
     /**

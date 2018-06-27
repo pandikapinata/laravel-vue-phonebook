@@ -50401,7 +50401,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             axios.post('/phonebook', this.$data.list).then(function (response) {
-                return _this2.showModal = false;
+                _this2.showModal = false;
+                _this2.lists.push(response.data); //merubah data dan mengambil data dari method di controller
+                _this2.lists.sort(function (a, b) {
+                    //sorting
+                    if (a.first_name > b.first_name) {
+                        return 1;
+                    } else if (a.first_name < b.first_name) {
+                        return -1;
+                    }
+                });
+                _this2.list = "";
             }).catch(function (error) {
                 _this2.errors = error.response.data.errors;
             });
