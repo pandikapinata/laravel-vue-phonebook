@@ -158,7 +158,10 @@ import Formerror from './FormErrors.vue';
             searchQuery(){
                 if(this.searchQuery.length > 0){
                     this.temp = this.lists.filter((item)=>{
-                        return item.first_name.toLowerCase().indexOf(this.searchQuery.toLowerCase())> -1
+                        return Object.keys(item).some((key)=>{
+                            let string = String(item[key])
+                            return string.toLowerCase().indexOf(this.searchQuery.toLowerCase())> -1
+                        })
                     });
                     // console.log(result)
                 }else{
@@ -179,11 +182,11 @@ import Formerror from './FormErrors.vue';
                 this.showModal = true;
             },
             openShow(key) {
-                this.content=this.lists[key]
+                this.content=this.temp[key]
                 this.detailcontactModal = true;
             },
             openEdit(key) {
-                this.contentUpdate=this.lists[key]
+                this.contentUpdate=this.temp[key]
                 this.editModal = true;
             },
             save(){

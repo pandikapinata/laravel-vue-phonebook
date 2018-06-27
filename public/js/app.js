@@ -50360,7 +50360,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.searchQuery.length > 0) {
                 this.temp = this.lists.filter(function (item) {
-                    return item.first_name.toLowerCase().indexOf(_this.searchQuery.toLowerCase()) > -1;
+                    return Object.keys(item).some(function (key) {
+                        var string = String(item[key]);
+                        return string.toLowerCase().indexOf(_this.searchQuery.toLowerCase()) > -1;
+                    });
                 });
                 // console.log(result)
             } else {
@@ -50384,11 +50387,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.showModal = true;
         },
         openShow: function openShow(key) {
-            this.content = this.lists[key];
+            this.content = this.temp[key];
             this.detailcontactModal = true;
         },
         openEdit: function openEdit(key) {
-            this.contentUpdate = this.lists[key];
+            this.contentUpdate = this.temp[key];
             this.editModal = true;
         },
         save: function save() {
