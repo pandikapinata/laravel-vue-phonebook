@@ -49993,9 +49993,7 @@ var render = function() {
               ],
               1
             )
-          ]),
-          _vm._v(" "),
-          _vm._m(2)
+          ])
         ]
       )
     ]
@@ -50039,26 +50037,6 @@ var staticRenderFns = [
       },
       [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("form", { staticClass: "form-inline my-2 my-lg-0" }, [
-      _c("input", {
-        staticClass: "form-control mr-sm-2",
-        attrs: { type: "text", placeholder: "Search" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-secondary my-2 my-sm-0",
-          attrs: { type: "submit" }
-        },
-        [_vm._v("Search")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -50346,7 +50324,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -50371,16 +50348,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             content: [],
             contentUpdate: {},
             errors: {},
-            lists: {}
+            lists: {},
+            searchQuery: "",
+            temp: ""
         };
     },
+
+    watch: {
+        searchQuery: function searchQuery() {
+            var _this = this;
+
+            if (this.searchQuery.length > 0) {
+                this.temp = this.lists.filter(function (item) {
+                    return item.first_name.toLowerCase().indexOf(_this.searchQuery.toLowerCase()) > -1;
+                });
+                // console.log(result)
+            } else {
+                this.temp = this.lists;
+            }
+        }
+    },
     mounted: function mounted() {
-        var _this = this;
+        var _this2 = this;
 
         axios.post('/getData').then(function (response) {
-            return _this.lists = response.data;
+            return _this2.lists = _this2.temp = response.data;
         }).catch(function (error) {
-            _this.errors = error.response.data.errors;
+            _this2.errors = error.response.data.errors;
         });
     },
 
@@ -50398,12 +50392,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.editModal = true;
         },
         save: function save() {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.post('/phonebook', this.$data.list).then(function (response) {
-                _this2.showModal = false;
-                _this2.lists.push(response.data); //merubah data dan mengambil data dari method di controller
-                _this2.lists.sort(function (a, b) {
+                _this3.showModal = false;
+                _this3.lists.push(response.data); //merubah data dan mengambil data dari method di controller
+                _this3.lists.sort(function (a, b) {
                     //sorting
                     if (a.first_name > b.first_name) {
                         return 1;
@@ -50411,28 +50405,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         return -1;
                     }
                 });
-                _this2.list = "";
-            }).catch(function (error) {
-                _this2.errors = error.response.data.errors;
-            });
-        },
-        update: function update() {
-            var _this3 = this;
-
-            axios.patch('/phonebook/' + this.contentUpdate.id, this.$data.contentUpdate).then(function (response) {
-                return _this3.editModal = false;
+                _this3.list = "";
             }).catch(function (error) {
                 _this3.errors = error.response.data.errors;
             });
         },
-        del: function del(key, id) {
+        update: function update() {
             var _this4 = this;
+
+            axios.patch('/phonebook/' + this.contentUpdate.id, this.$data.contentUpdate).then(function (response) {
+                return _this4.editModal = false;
+            }).catch(function (error) {
+                _this4.errors = error.response.data.errors;
+            });
+        },
+        del: function del(key, id) {
+            var _this5 = this;
 
             if (confirm("Are you sure?")) {
                 axios.delete('/phonebook/' + id).then(function (response) {
-                    return _this4.lists.splice(key, 1);
+                    return _this5.lists.splice(key, 1);
                 }).catch(function (error) {
-                    _this4.errors = error.response.data.errors;
+                    _this5.errors = error.response.data.errors;
                 });
             }
         }
@@ -50718,15 +50712,44 @@ var render = function() {
                 [_vm._v("Create New Contact")]
               ),
               _vm._v(" "),
-              _vm._m(0)
+              _c(
+                "form",
+                {
+                  staticClass: "form-inline my-2 my-lg-0",
+                  staticStyle: { float: "right" }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.searchQuery,
+                        expression: "searchQuery"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Search" },
+                    domProps: { value: _vm.searchQuery },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.searchQuery = $event.target.value
+                      }
+                    }
+                  })
+                ]
+              )
             ]),
             _vm._v(" "),
             _c("table", { staticClass: "table" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.lists, function(item, key) {
+                _vm._l(_vm.temp, function(item, key) {
                   return _c("tr", [
                     _c("td", [_vm._v(_vm._s(key + 1))]),
                     _vm._v(" "),
@@ -51422,33 +51445,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      {
-        staticClass: "form-inline my-2 my-lg-0",
-        staticStyle: { float: "right" }
-      },
-      [
-        _c("input", {
-          staticClass: "form-control mr-sm-2",
-          attrs: { type: "text", placeholder: "Search" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-secondary my-2 my-sm-0",
-            attrs: { type: "submit" }
-          },
-          [_vm._v("Search")]
-        )
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -7,8 +7,7 @@
                 <div style="padding-bottom:15px">
                     <button class="btn btn-success my-2 my-sm-0" id="show-modal" @click="openModal()">Create New Contact</button>
                     <form class="form-inline my-2 my-lg-0" style="float:right">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        <input class="form-control" type="text" placeholder="Search" v-model="searchQuery">
                     </form>
                 </div>
                 <table class="table">
@@ -20,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item, key in lists">
+                        <tr v-for="item, key in temp">
                             <td>{{key+1}}</td>
                             <td>{{item.first_name}} {{item.last_name}}</td>
                             <td>
@@ -151,11 +150,26 @@ import Formerror from './FormErrors.vue';
                 contentUpdate:{},
                 errors:{},
                 lists:{},
+                searchQuery:"",
+                temp:"",
             }
+        },
+        watch:{
+            searchQuery(){
+                if(this.searchQuery.length > 0){
+                    this.temp = this.lists.filter((item)=>{
+                        return item.first_name.toLowerCase().indexOf(this.searchQuery.toLowerCase())> -1
+                    });
+                    // console.log(result)
+                }else{
+                    this.temp = this.lists
+                }
+            }
+
         },
         mounted(){
             axios.post('/getData').
-            then((response)=> this.lists=response.data)
+            then((response)=> this.lists= this.temp = response.data)
             .catch(error => {this.errors = error.response.data.errors;
             });
         },
